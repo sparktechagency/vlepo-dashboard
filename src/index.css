@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.ant-layout .ant-layout-sider-children {  
+    background: linear-gradient(to bottom, #EF4136, #FBB040) !important;
+} 
+
+/* ant design menu option */
+.ant-menu-item:hover {
+    background: linear-gradient(to right, #FFFFFF, #FBB040) !important;
+    color: #545454 !important; 
+    border-left: 6px solid #FBB040 !important; 
+    border-radius: 0px 2px 2px 0px !important;
+  } 
+
+  .ant-menu-item{
+    font-size: 18px !important;
+  } 
+  .ant-menu-item-selected {  
+    background: linear-gradient(to right, #FFFFFF, #FBB040) !important;
+    color: #545454 !important; 
+    border-left: 6px solid #FBB040 !important; 
+    border-radius: 0px 2px 2px 0px !important;
+  }
+  
+.ant-menu-item-active{
+    background: linear-gradient(to right, #FFFFFF, #FBB040) !important;
+    color: #545454 !important; 
+    border-left: 6px solid #FBB040 !important; 
+    border-radius: 0px 2px 2px 0px !important;
+  }
+  
+  .ant-menu .ant-menu-item .ant-menu-item-icon +span{
+    transition: none !important;
+  }
+  
+  .ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
+
+  background: linear-gradient(to bottom, #EF4136, #FBB040) !important;
+
+  }
+  
+  .ant-menu .ant-menu-title-content{
+    transition: none !important; 
+  }  
