@@ -1,4 +1,4 @@
-import { Table,  Input } from 'antd';
+import { Table, Input } from 'antd';
 import { CiSearch } from 'react-icons/ci';
 import { MdOutlineMessage } from 'react-icons/md';
 
@@ -96,27 +96,23 @@ const influencerData = [
 ];
 
 
-// Column definitions
-
 const Users = () => {
-   
 
-    const columns = [ 
+
+    const columns = [
         {
             title: 'S.No.',
             dataIndex: 'id',
             key: 'id',
-            render: (_: any, record: any , index:number) => (
-                <p className="">{index+1}</p>
-            ),
-        } ,
- 
+            render: (_: any, __: any, index: number) => index + 1,
+        },
+
         {
             title: 'User ',
             dataIndex: 'userImage',
             key: 'userImage',
-            render: (_:any,record: any) => ( 
-                <div className='flex items-center gap-1'> 
+            render: (_: any, record: any) => (
+                <div className='flex items-center gap-1'>
                     <img src={record.userImage} alt="User" style={{ width: 40, height: 40, borderRadius: '50%' }} />
                     <p> {record.name}</p>
                 </div>
@@ -152,11 +148,11 @@ const Users = () => {
             dataIndex: 'status',
             key: 'status',
             render: (status: string) => (
-                <button 
+                <button
                     style={{
-                        fontWeight: 500, 
-                        backgroundColor:"#FFF7EC", 
-                        padding: "4px 16px", 
+                        fontWeight: 500,
+                        backgroundColor: "#FFF7EC",
+                        padding: "4px 16px",
                         borderRadius: "10px"
                     }}
                     className={status === 'Active' ? 'text-[#00B69B]' : 'text-red-500'}
@@ -168,7 +164,7 @@ const Users = () => {
         {
             title: 'Action',
             key: 'action',
-            render: (_: any, record: any) => ( 
+            render: () => (
 
                 <button><MdOutlineMessage color='#EF4136' size={22} /> </button>
             ),
@@ -177,23 +173,23 @@ const Users = () => {
     return (
         <div className="">
             <div className="flex justify-between items-center pb-5">
-          
-                    <h1 className="text-3xl text-primaryText font-semibold ">Users</h1>
-           
-            
-                    <Input
-                        style={{
-                            maxWidth: 320,
-                            height: 45,
-                        }}
-                        placeholder="Search"
-                        prefix={<CiSearch size={24} color='gray'  />} 
-                    />
 
-              
+                <h1 className="text-3xl text-primaryText font-semibold ">Users</h1>
+
+
+                <Input
+                    style={{
+                        maxWidth: 320,
+                        height: 45,
+                    }}
+                    placeholder="Search"
+                    prefix={<CiSearch size={24} color='gray' />}
+                />
+
+
             </div>
             <Table columns={columns} dataSource={influencerData} rowClassName="hover:bg-gray-100" />
-   
+
         </div>
     );
 };

@@ -1,8 +1,5 @@
     
-    import { BsCurrencyDollar, BsTicket } from 'react-icons/bs';
-
-    import { MdOutlineVerifiedUser } from 'react-icons/md';
-    import { PiUsersThree } from 'react-icons/pi'; 
+    import {  BsTicket } from 'react-icons/bs';
     import { FaArrowUp } from "react-icons/fa6"; 
 import { IoCalendarClearOutline } from 'react-icons/io5';
 import { RiCalendarScheduleLine } from 'react-icons/ri';
