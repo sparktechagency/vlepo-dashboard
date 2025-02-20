@@ -29,7 +29,7 @@ const Login = () => {
                 },
             }}
         >
-            <div className="flex bg-[#1A4F73] items-center justify-center h-screen">
+            <div className="flex bg-gradient-to-r from-[#EF4136] to-[#FBB040] items-center justify-center h-screen">
                 <div className="bg-white w-[630px] rounded-lg shadow-lg p-10 ">
                     <div className="text-primaryText space-y-3 text-center">
                         <h1 className="text-3xl  font-medium text-center mt-2">Login to Account</h1>

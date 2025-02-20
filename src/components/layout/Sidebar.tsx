@@ -13,14 +13,14 @@ import { BsPatchQuestion } from 'react-icons/bs';
 
 
 const Sidebar = () => {
-    const [selectedKey, ] = useState("");
-    const [openKeys] = useState([]);
+    const [selectedKey, setSelectedKey] = useState<string>("/");
+    const [openKeys, setOpenKeys] = useState<string[]>([]);
     const navigate = useNavigate();
 
 
     const handleLogout=()=>{
         localStorage.removeItem("token")
-        navigate("/auth/login")
+        navigate("/login")
     }
 
     const menuItems = [
@@ -64,9 +64,9 @@ const Sidebar = () => {
         },
     ];
 
-
-
-
+    const handleOpenChange = (keys: string[]) => {
+        setOpenKeys(keys);
+    };
 
     return (
         <div className='mt-5'>
@@ -91,13 +91,16 @@ const Sidebar = () => {
                 },
             }}
         >
-            <Menu
-                mode="inline"
-                selectedKeys={[selectedKey]}
-                openKeys={openKeys}
-                style={{ borderRightColor: "transparent", background: "transparent" , color: "white"}}
-                items={menuItems}
-            /> 
+<Menu
+    mode="inline"
+    selectedKeys={[selectedKey]} // Wrap it in an array
+    openKeys={openKeys}
+    onOpenChange={handleOpenChange}
+    onSelect={({ key }) => setSelectedKey(key)} // Update selected key when an item is selected
+    style={{ borderRightColor: "transparent", background: "transparent", color: "white" }}
+    items={menuItems}
+/>
+
             </ConfigProvider>
         </div>
     )
