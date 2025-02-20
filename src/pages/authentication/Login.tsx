@@ -1,13 +1,47 @@
 import { Button, Checkbox, ConfigProvider, Form, FormProps, Input } from 'antd';
 import { FieldNamesType } from 'antd/es/cascader';
 import { Link, useNavigate } from 'react-router-dom';
+import { useLoginUserMutation } from '../../redux/features/auth/authApi';
+import { setToLocalStorage } from '../../utils/local-stroage';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const navigate = useNavigate();
-    const onFinish: FormProps<FieldNamesType>['onFinish'] = (values) => {
-        console.log('Received values of form: ', values);
-        navigate('/');
+    const navigate = useNavigate(); 
+    const [loginUser , {isSuccess , isError , isLoading , data , error}] = useLoginUserMutation() 
+
+    useEffect(() => {
+        if (isSuccess) { 
+          if (data) {
+            Swal.fire({
+              text: data?.message ,
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false
+            }).then(() => {
+              setToLocalStorage("vlepoToken", data?.data?.accessToken);  
+              navigate("/");   
+              window.location.reload(); 
+            });
+          }
+        }
+        if (isError) {
+          Swal.fire({ 
+            //@ts-ignore
+            text: error?.data?.message,  
+            icon: "error",
+          });
+        }
+      }, [isSuccess, isError, error, data, navigate])  
+
+
+    const onFinish: FormProps<FieldNamesType>['onFinish'] = async (values) => { 
+        await loginUser(values).then((res)=>{
+            console.log(res)
+        })
+        // navigate('/'); 
     };
+
 
     return (
         <ConfigProvider
@@ -88,7 +122,7 @@ const Login = () => {
                                 }}
                                 // onClick={() => navigate('/')}
                             >
-                                Sign In
+                              {isLoading ? "Loading..." : "Sign In"}
                             </Button>
                         </Form.Item>
                     </Form>

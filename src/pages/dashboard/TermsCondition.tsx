@@ -1,10 +1,20 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import JoditEditor from 'jodit-react';
 import { Button } from 'antd';
+import Swal from 'sweetalert2';
+import { useCreateTermsMutation, useGetTermsQuery } from '../../redux/features/terms';
+
 
 const TermsCondition = () => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
+    const { data: terms, refetch } = useGetTermsQuery(undefined)
+    const [createTerms] = useCreateTermsMutation()
+
+
+    useEffect(() => {
+        setContent(terms?.data[0]?.content)
+    }, [terms])
 
     const config = {
         readonly: false,
@@ -14,8 +24,37 @@ const TermsCondition = () => {
             background: 'white',
         },
     };
+
+
+    const handleSubmit = async () => {
+        const data = { content: content }
+        await createTerms(data).then((res) => {
+            console.log(res);
+            if (res?.data?.success) {
+                Swal.fire({
+                    text: res?.data?.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then(() => {
+                    refetch();
+
+                })
+            } else {
+                Swal.fire({
+                    title: "Oops",
+                    //@ts-ignore
+                    text: res?.error?.data?.message,
+                    icon: "error",
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+
+            }
+        })
+    }
     return (
-        <div className="  px-4 py-2 rounded-lg pb-10 ">
+        <div className=" bg-white px-4 py-2 rounded-lg pb-10 ">
             <div
                 style={{
                     display: 'flex',
@@ -25,7 +64,7 @@ const TermsCondition = () => {
                 }}
             >
                 <div>
-                    <h3 className="text-3xl text-primaryText font-semibold pb-3">Terms and Conditions</h3>
+                    <h3 className="text-3xl text-primary font-semibold">Terms and Conditions</h3>
                 </div>
             </div>
             <div>
@@ -34,7 +73,7 @@ const TermsCondition = () => {
                     value={content}
                     config={config}
                     onBlur={(newContent) => setContent(newContent)}
-                    onChange={() => {}}
+                    onChange={() => { }}
                 />
             </div>
             <div
@@ -51,6 +90,7 @@ const TermsCondition = () => {
                         width: '150px',
                     }}
                     type="primary"
+                    onClick={handleSubmit}
                 >
                     Save Changes
                 </Button>

@@ -1,63 +1,25 @@
 import { Table } from 'antd';
 import EventChart from './EventChart';
 import EventStates from './EventStates';
+import { useGetAllEventsQuery } from '../../../redux/event';
+import moment from 'moment';
 
 
 const EventManagements = () => {
+            const {data:events} = useGetAllEventsQuery(undefined) 
+                console.log(events?.data); 
 
+                const data = events?.data?.map((item: any, index: number) => ({
+                    id: item?._id, 
+                    eventName: item?.eventName, 
+                    soldTicket : item?.soldTicket , 
+                    date: moment(item?.date).format('YYYY-MM-DD'),  
+                    status: item?.status , 
+                    totalSale: item?.totalSale , 
+                    totalSeat: item?.totalSeat , 
+                    views: item?.views
+                }))
 
-    const data = [
-        {
-            key: '00001',
-            name: 'Beatrice Pedrali',
-            eventName: 'Virtual Rave',
-            category: 'Creator',
-            date: '08-01-2025',
-            invoice: '62738962985984',
-            amount: '139$',
-            status: 'Paid',
-        },
-        {
-            key: '00002',
-            name: 'Beatrice Pedrali',
-            eventName: 'Virtual Rave',
-            category: 'Viewer',
-            date: '08-01-2025',
-            invoice: '62738962985984',
-            amount: '18$',
-            status: 'Pay now',
-        },
-        {
-            key: '00003',
-            name: 'Beatrice Pedrali',
-            eventName: 'Virtual Rave',
-            category: 'Viewer',
-            date: '08-01-2025',
-            invoice: '62738962985984',
-            amount: '18$',
-            status: 'Pay now',
-        },
-        {
-            key: '00004',
-            name: 'Beatrice Pedrali',
-            eventName: 'Virtual Rave',
-            category: 'Creator',
-            date: '08-01-2025',
-            invoice: '62738962985984',
-            amount: '179$',
-            status: 'Paid',
-        },
-        {
-            key: '00005',
-            name: 'Beatrice Pedrali',
-            eventName: 'Virtual Rave',
-            category: 'Viewer',
-            date: '08-01-2025',
-            invoice: '62738962985984',
-            amount: '18$',
-            status: 'Paid',
-        },
-    ];
 
     // Column definitions
     const columns = [
@@ -67,14 +29,14 @@ const EventManagements = () => {
             key: 'eventName',
         },
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Sold Ticket',
+            dataIndex: 'soldTicket',
+            key: 'soldTicket',
         },
         {
-            title: 'Category',
-            dataIndex: 'category',
-            key: 'category',
+            title: 'Total Sale',
+            dataIndex: 'totalSale',
+            key: 'totalSale',
         },
         {
             title: 'Date',
@@ -82,14 +44,14 @@ const EventManagements = () => {
             key: 'date',
         },
         {
-            title: 'Invoice',
-            dataIndex: 'invoice',
-            key: 'invoice',
+            title: 'Total Seat',
+            dataIndex: 'totalSeat',
+            key: 'totalSeat',
         },
         {
-            title: 'Amount',
-            dataIndex: 'amount',
-            key: 'amount',
+            title: 'Views',
+            dataIndex: 'views',
+            key: 'views',
         },
         {
             title: 'Status',
@@ -113,18 +75,18 @@ const EventManagements = () => {
         <div className="">
 
             <div className=' grid grid-cols-12 gap-8'>
- <div  className=' col-span-9 bg-white'> 
-<EventChart />
- </div> 
+                <div className=' col-span-9 bg-white'>
+                    <EventChart />
+                </div>
 
- <div className=' col-span-3'> 
-<EventStates />
- </div>
+                <div className=' col-span-3'>
+                    <EventStates />
+                </div>
 
             </div>
 
             <div className='mt-4'>
-            
+
 
                 <Table columns={columns} dataSource={data} rowClassName="hover:bg-gray-100" />
             </div>
