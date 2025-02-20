@@ -20,7 +20,7 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
     } ,[openEditModal , form])
   
     const onFinish =async(values:{question:string , answer:string})=>{ 
-  console.log(values);   
+
   const data ={
     _id:openEditModal?._id ,
     question:values?.question ,
@@ -29,7 +29,7 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
   
   if(openEditModal){
   await updateFaq(data).then((res)=>{
-    console.log(res); 
+  
     if(res?.data?.success){
       Swal.fire({
           text:res?.data?.message,
@@ -56,7 +56,7 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
   })
   }else{
     await addFaq(values).then((res)=>{
-      console.log(res); 
+
       if(res?.data?.success){
         Swal.fire({
             text:res?.data?.message,

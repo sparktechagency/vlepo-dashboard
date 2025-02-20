@@ -35,9 +35,7 @@ const NewPassword = () => {
     const onFinish = async(values:{newPassword:string , confirmPassword:string}) => {
 
         // navigate('/'); 
-        await resetPassword(values).then((res)=>{
-            console.log(res);
-        })
+        await resetPassword(values)
     }; 
 
     return (

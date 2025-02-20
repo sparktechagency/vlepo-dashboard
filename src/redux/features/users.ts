@@ -7,7 +7,7 @@ const usersApi = baseApi.injectEndpoints({
                 url: "/dashboard/all-users"
             }),
             transformResponse: (res: any) => {
-                console.log(res); 
+              
                 return res; 
             }
         }) , 

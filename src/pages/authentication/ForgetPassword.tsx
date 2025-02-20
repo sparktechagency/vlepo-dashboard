@@ -39,12 +39,9 @@ const ForgetPassword = () => {
 
 
     const onFinish = async(values: { email: SetStateAction<undefined>; }) => {  
-       console.log(values);
+      
         setEmail(values.email)
-     await forgetPassword(values).then((res) => { 
-        console.log(res);
-     })
-        //; 
+     await forgetPassword(values)
     }; 
 
     return (

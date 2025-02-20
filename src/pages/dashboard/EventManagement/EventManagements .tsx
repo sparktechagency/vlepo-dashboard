@@ -7,7 +7,7 @@ import moment from 'moment';
 
 const EventManagements = () => {
             const {data:events} = useGetAllEventsQuery(undefined) 
-                console.log(events?.data); 
+               
 
                 const data = events?.data?.map((item: any, index: number) => ({
                     id: item?._id, 

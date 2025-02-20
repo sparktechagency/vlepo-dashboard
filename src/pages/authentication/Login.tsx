@@ -36,9 +36,7 @@ const Login = () => {
 
 
     const onFinish: FormProps<FieldNamesType>['onFinish'] = async (values) => { 
-        await loginUser(values).then((res)=>{
-            console.log(res)
-        })
+        await loginUser(values)
         // navigate('/'); 
     };
 

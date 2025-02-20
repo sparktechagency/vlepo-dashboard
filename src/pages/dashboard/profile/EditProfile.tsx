@@ -52,9 +52,7 @@ const EditProfile: React.FC = () => {
        formData.append("name", values?.name) 
        formData.append("address", values?.address) 
 
-        await updateProfile(formData).then((res)=>{
-            console.log(res);
-        })
+        await updateProfile(formData)
  
     };
 

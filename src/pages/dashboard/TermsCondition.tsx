@@ -29,7 +29,7 @@ const TermsCondition = () => {
     const handleSubmit = async () => {
         const data = { content: content }
         await createTerms(data).then((res) => {
-            console.log(res);
+       
             if (res?.data?.success) {
                 Swal.fire({
                     text: res?.data?.message,
