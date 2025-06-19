@@ -27,7 +27,7 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
     answer:values?.answer
   }
   
-  if(openEditModal){
+  if(openEditModal?._id){
   await updateFaq(data).then((res)=>{
   
     if(res?.data?.success){
@@ -55,7 +55,8 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
   }
   })
   }else{
-    await addFaq(values).then((res)=>{
+    await addFaq(values).then((res)=>{ 
+      console.log("res", res);
 
       if(res?.data?.success){
         Swal.fire({
@@ -73,7 +74,7 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
         Swal.fire({
             title: "Oops", 
              //@ts-ignore
-            text: res?.error?.data?.message,
+            text: res?.error?.data?.errorMessages?.map((e: any) => e?.message),
             icon: "error",
             timer: 1500,
             showConfirmButton: false,

@@ -1,12 +1,16 @@
-import { Table, Input } from 'antd';
+import { Table, Input, Pagination } from 'antd';
 import { CiSearch } from 'react-icons/ci';
 import { useGetUsersQuery, useUpdateUserStatusMutation } from '../../redux/features/users';
 import { imageUrl } from '../../redux/base/baseApi';
+import { useState } from 'react';
 
-const Users = () => {
-    const { data: users , refetch } = useGetUsersQuery(undefined)
-    const [updateUserStatus] = useUpdateUserStatusMutation()
-
+const Users = () => { 
+    const [page , setPage] = useState(1) 
+    const [search , setSearch] = useState("") 
+    const limit = 8
+    const { data: users , refetch } = useGetUsersQuery({page , search , limit})
+    const [updateUserStatus] = useUpdateUserStatusMutation() 
+    console.log("users", users);
     const data = users?.data?.map((item: any, index: number) => ({
         key: index + 1,
         id: item?._id,
@@ -88,13 +92,27 @@ const Users = () => {
                         maxWidth: 320,
                         height: 45,
                     }}
-                    placeholder="Search"
+                    placeholder="Search"  
+                    onChange={(e) => setSearch(e.target.value)}
                     prefix={<CiSearch size={24} color='gray' />}
                 />
 
 
             </div>
-            <Table columns={columns} dataSource={data} rowClassName="hover:bg-gray-100" />
+            <Table columns={columns} dataSource={data}  rowClassName="hover:bg-gray-100"  pagination={false} />  
+            {
+                users?.pagination?.total >= 8 && ( 
+                    <div className='mt-7'> 
+                        <Pagination 
+                        align="end"
+                            current={page}
+                            total={users?.pagination?.total}
+                            pageSize={users?.pagination?.limit}
+                            onChange={(page) => setPage(page)}
+                        />
+                    </div>
+                )
+            }
 
         </div>
     );

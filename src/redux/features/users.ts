@@ -3,9 +3,15 @@ import { baseApi } from "../base/baseApi";
 const usersApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({     
         getUsers: builder.query({
-            query: () => ({
-                url: "/dashboard/all-users"
-            }),
+            query: ({page, search , limit}) => {  
+                const params = new URLSearchParams(); 
+                if(search) params.append('searchTerm', search); 
+                if(page) params.append('page', page);  
+                if(limit) params.append('limit', limit);
+                return{
+                    url: `/dashboard/all-users?${params.toString()}`
+                }
+            },
             transformResponse: (res: any) => {
               
                 return res; 
