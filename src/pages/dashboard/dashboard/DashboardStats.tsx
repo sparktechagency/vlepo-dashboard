@@ -3,37 +3,41 @@ import { BsCurrencyDollar } from 'react-icons/bs';
 import { MdOutlineVerifiedUser } from 'react-icons/md';
 import { PiUsersThree } from 'react-icons/pi'; 
 import { FaArrowUp, FaChartLine } from "react-icons/fa6";
+import { useGetStateQuery } from '../../../redux/features/dashboardHome';
 
 
-const  DashboardStats = () => {
+const  DashboardStats = () => {  
+    const {data: allStats} = useGetStateQuery(undefined)   
+    const stats = allStats?.data
+
     const data = [
         {
             name: 'Total Viewer',
-            count: '20.10K',
+            count: stats?.totalViewers,
             icon: <PiUsersThree color="#EF4136" size={32} />,
             textColor: '#FBB040', 
-            profit: "4%"
+            profit: `${stats?.totalViewerGrowthRate}% (30 days)`
         },
         {
             name: 'Total Profit',
-            count: '920',
+            count: stats?.totalProfit,
             icon: <BsCurrencyDollar color="#EF4136" size={32} />,
             bgColor: '#FDF6EC', 
-            profit: "6%"
+            profit: `${stats?.totalProfitGrowthRate}% (30 days)`
         },
         {
             name: 'Total Creator ',
-            count: '150.10K',
+            count: stats?.totalCreators,
             icon: <MdOutlineVerifiedUser color="#EF4136" size={32} />,
             bgColor: '#FDF6EC', 
-            profit: "3%" 
+            profit: `${stats?.totalCreatorsGrowthRate}% (30 days)`
         },
         {
             name: 'Growth Rate',
-            count: '150.10K',
+            count: stats?.totalGrowthRate,
             icon: <FaChartLine  color="#EF4136" size={32} />,
             bgColor: '#FDF6EC', 
-            profit: "2%"
+            // profit: ""
         },
 
     ];
@@ -58,12 +62,17 @@ const  DashboardStats = () => {
                                    ${item.count}
                                 </p> 
 
-                                <div className='flex gap-2 items-center justify-end pt-2'> 
+{
+    item?.profit && (
+            <div className='flex gap-2 items-center justify-end pt-2'> 
                                 <div className={`bg-[#e0f9f2] w-[18px] h-[18px] rounded-full flex items-center justify-center`}>
                                 <FaArrowUp color="#00A389" size={8} />
                         </div> 
-                        <p className='text-[#A3A3A3] text-[12px]'>4% (30 days)</p>
+                        <p className='text-[#A3A3A3] text-[12px]'>{item.profit}</p>
                                 </div>
+    )
+}
+                          
                            
                         </div>
                     </div>

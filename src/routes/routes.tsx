@@ -13,12 +13,12 @@ import NewPassword from '../pages/authentication/NewPassword';
 import Profile from '../pages/dashboard/profile/Profile';
 import EventManagements from '../pages/dashboard/EventManagement/EventManagements ';
 import Users from '../pages/dashboard/Users';
-
+import PrivateProvider from './PrivateProvider';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,
+        element: <PrivateProvider> <App /> </PrivateProvider> ,
         errorElement: <ErrorPage />,
         children: [
             { path: '', element: <Dashboard /> },

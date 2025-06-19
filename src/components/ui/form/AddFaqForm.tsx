@@ -56,7 +56,6 @@ const AddFaqForm = ({openEditModal ,setEditModal ,setOpenModal , openModal , ref
   })
   }else{
     await addFaq(values).then((res)=>{ 
-      console.log("res", res);
 
       if(res?.data?.success){
         Swal.fire({

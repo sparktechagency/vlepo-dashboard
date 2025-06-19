@@ -10,7 +10,6 @@ const Users = () => {
     const limit = 8
     const { data: users , refetch } = useGetUsersQuery({page , search , limit})
     const [updateUserStatus] = useUpdateUserStatusMutation() 
-    console.log("users", users);
     const data = users?.data?.map((item: any, index: number) => ({
         key: index + 1,
         id: item?._id,
